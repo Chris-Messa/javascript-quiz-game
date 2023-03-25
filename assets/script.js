@@ -15,16 +15,61 @@ startButton.addEventListener("click", e => {
 })
 
 const questions = [
-    {question: "question1", answer: "HO"}, 
-    {question: "question2", answer: "HO"}, 
-    {question: "question3", answer: "HO"}, 
-    {question: "question4", answer: "HO"}, 
-    {question: "question5", answer: "HO"}, 
-    {question: "question6", answer: "HO"}, 
-    {question: "question7", answer: "HO"}, 
-    {question: "question8", answer: "HO"}, 
-    {question: "question9", answer: "HO"}, 
-    {question: "question10", answer: "HO"}, 
+    {
+        question: "question1", 
+        answer: "choice 1", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question2", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question3", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question4", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question5", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question6", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question7", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question8", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question1", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question1", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
+    {
+        question: "question1", 
+        answer: "HO", 
+        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+    }, 
 ];
 
 let randomQ = questions[Math.floor(Math.random() * questions.length)].question;
@@ -39,11 +84,12 @@ function createListEls() {
     }
 }
 
+
+
 function displayAnswers() {
-    createListEls();
-    let answers = ["choice 1", "choice 2", "choice 3", "choice 4"];
+    let choices = ["choice 1", "choice 2", "choice 3", "choice 4"];
     for (let i = 0; i < 4; i++) {
-        answerList.children[i].textContent = answers[i];
+        answerList.children[i].textContent = choices[i];
     }
 }
 
