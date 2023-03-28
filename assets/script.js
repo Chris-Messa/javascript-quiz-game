@@ -1,72 +1,102 @@
-const timer = document.querySelector("#timer");
-const startButton = document.querySelector("#start-button");
-const quizQuestions = document.querySelector("#quiz-questions");
-const answerList = document.querySelector("#answer-list");
-const answerResult = document.querySelector("#answer-result");
+const timer = document.querySelector(`#timer`);
+const startButton = document.querySelector(`#start-button`);
+const quizQuestions = document.querySelector(`#quiz-questions`);
+const answerList = document.querySelector(`#answer-list`);
+const answerResult = document.querySelector(`#answer-result`);
 
 
-startButton.addEventListener("click", e => {
+startButton.addEventListener(`click`, e => {
     e.stopPropagation();
-    e.preventDefault();
-    document.querySelector("h1").setAttribute("style", "display: none;");
-    document.querySelector("#start-button").setAttribute("style", "display: none;");
-    chooseQuestion();
+    e.preventDefault(); 
+    playGame();
 })
 
 const questions = [
     {
-        question: "question1", 
-        answer: "choice 1", 
-        choices: [ "1 choice 1", "1 choice 2", "1 choice 3", "1 choice 4"]
+        question: `Which of the following is not an array method?`, 
+        answer: `charAt()`, 
+        choices: [ `join()`, `map()`, `charAt()`, `indexOf()`]
     }, 
     {
-        question: "question2", 
-        answer: "HO", 
-        choices: [ "2 choice 1", "2 choice 2", "2 choice 3", "2 choice 4"]
+        question: `Which of these is the correct way to define a function in Javascript?`, 
+        answer: `All of the above`, 
+        choices: [ `let theFunction = function() {}`, `function() {}`, `()=> {}`, `All of the above`]
     }, 
     {
-        question: "question3", 
-        answer: "HO", 
-        choices: [ "3 choice 1", "3 choice 2", "3 choice 3", "3 choice 4"]
+        question: `What would typeof(console.log) return to the console?`, 
+        answer: `function`, 
+        choices: [ `'string'`, `'function'`, `'undefined'`, `None of the above`]
     }, 
     {
-        question: "question4", 
-        answer: "HO", 
-        choices: [ "4 choice 1", "4 choice 2", "4 choice 3", "4 choice 4"]
+        question: `How do we declare an array in javascript?`, 
+        answer: `let arr = ['one', 'two', 'three']`, 
+        choices: [ `<array>['one', 'two', 'three']</array>`, `variable.Array = ['one', 'two', 'three']`, `Array[] = new Array('one', 'two', 'three')`, `let arr = ['one', 'two', 'three']`]
     }, 
     {
-        question: "question5", 
-        answer: "HO", 
-        choices: [ "5 choice 1", "5 choice 2", "5 choice 3", "5 choice 4"]
+        question: `Which of the following is NOT a primitive type in javascript`, 
+        answer: `object`, 
+        choices: [ `object`, `boolean`, `number`, `string`]
     }, 
     {
-        question: "question6", 
-        answer: "HO", 
-        choices: [ "6 choice 1", "6 choice 2", "6 choice 3", "6 choice 4"]
+        question: `In the following array: [1, 2, 3, 4, 5, 6, 7] what is the value at the 3rd index?`, 
+        answer: `4`, 
+        choices: [ `3`, `4`, `2`, `There is no value at the 3rd index`]
     }, 
     {
-        question: "question7", 
-        answer: "HO", 
-        choices: [ "7 choice 1", "7 choice 2", "7 choice 3", "7 choice 4"]
+        question: ``, 
+        answer: `HO`, 
+        choices: [ `7 choice 1`, `7 choice 2`, `7 choice 3`, `7 choice 4`]
     }, 
     {
-        question: "question8", 
-        answer: "HO", 
-        choices: [ "8 choice 1", "8 choice 2", "8 choice 3", "8 choice 4"]
+        question: `question8`, 
+        answer: `HO`, 
+        choices: [ `8 choice 1`, `8 choice 2`, `8 choice 3`, `8 choice 4`]
     }, 
     {
-        question: "question9", 
-        answer: "HO", 
-        choices: [ "9 choice 1", "9 choice 2", "9 choice 3", "9 choice 4"]
+        question: `question9`, 
+        answer: `HO`, 
+        choices: [ `9 choice 1`, `9 choice 2`, `9 choice 3`, `9 choice 4`]
     }, 
     {
-        question: "question10", 
-        answer: "HO", 
-        choices: [ "choice 1", "choice 2", "choice 3", "choice 4"]
+        question: `question10`, 
+        answer: `HO`, 
+        choices: [ `choice 1`, `choice 2`, `choice 3`, `choice 4`]
     }
 ];
 
+const questionOne = questions[0];
+let chosenAnswer ="";
 
+function playGame() {
+    document.querySelector(`h1`).setAttribute(`style`, `display: none;`);
+    document.querySelector(`#start-button`).setAttribute(`style`, `display: none;`);
+    chooseQuestion();
+
+
+    let chosenAnswerEvent = document.addEventListener('click', e=> { 
+        e.stopPropagation();
+
+        chosenAnswer = e.target.textContent;
+        if (chosenAnswer === questionOne.answer) {
+            console.log("Correct!");
+        } else if (chosenAnswer !== questionOne.answer) {
+            console.log("Wrong!");
+        }
+        if (questions.length === 0) {
+           console.log("Game Over!");
+        } else {
+            questions.pop();
+            chooseQuestion();
+        }
+    return chosenAnswer;
+})
+
+    function isCorrect() {
+        let isCorrectAnswer = (chosenAnswer === questionOne.answer);
+        return isCorrectAnswer;
+    }
+    
+}
 
 
 function chooseQuestion() {
@@ -80,12 +110,16 @@ function chooseQuestion() {
     }
 }
 
-
+let numEls = 0;
 function createListEls() {
-    for (let i = 0; i < 4; i++) {
-        answerList.appendChild(document.createElement("li"));
-        answerList.children[i].id = `list-item-${i + 1}`
+ 
+    if (numEls < 4) {
+        for (let i = 0; i < 4; i++) {
+        answerList.appendChild(document.createElement(`li`));
+        answerList.children[i].id = `list-item-${i + 1}`;
+        numEls++;
     }
+}
 }
 
 
