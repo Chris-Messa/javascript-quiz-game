@@ -1,0 +1,24 @@
+var timer
+var startButton
+var quizQuestions
+var answerList
+var answerResult
+var questions[q1, q2, q3, q4]
+startButton.event(playGame on click);
+
+function playGame() {
+	begin timer()
+	for each question
+		displayQuestion() {
+            
+		}
+		questionEvent() {
+
+        }
+		eventResult()
+			if user answer is incorrect, display "wrong" and subtract time from timer()
+			if user answer is correct, display correct
+			subtract current question from list of questions  	
+			move to next question until there are no more questions
+	when there are no more questions, display score screen and allow user to enter initials
+}
