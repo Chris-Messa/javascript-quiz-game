@@ -1,9 +1,12 @@
+const game = document.querySelector(`#game`);
 const timer = document.querySelector(`#timer`);
 const startButton = document.querySelector(`#start-button`);
 const quizQuestions = document.querySelector(`#quiz-questions`);
 const answerList = document.querySelector(`#answer-list`);
 const answerResult = document.querySelector(`#answer-result`);
+const scorelist = document.querySelector(`#end-game`);
 const h1El =  document.querySelector(`h1`);
+const gameContainer = document.querySelector(`.game-flex-container`);
 const questions = [
     {
         question: `Which of the following is not an array method?`, 
@@ -37,33 +40,34 @@ const questions = [
     }
 ];
 
-answerList.setAttribute(`style`, `display: none`)
-var timerCountdown = 3;
+var timerCountdown = 0;
 startButton.addEventListener(`click`, e => {
     e.stopPropagation();
     e.preventDefault(); 
     playGame();
-    timer.textContent = timerCountdown;
 
-    const id = setInterval(() => {
+    timer.textContent = timerCountdown;
+    
+    const interval = setInterval(() => {
         timerCountdown--; 
         timer.textContent = timerCountdown;
-        if (timerCountdown === 0) {
-            clearInterval(id);
-            console.log("Times UP");
+        if (timerCountdown <= 0) {
+            clearInterval(interval);
+            timer.textContent = "Times Up!";
+            endGame();
         }
     }, 1000)
  
 });
 
 function playGame() {
-    h1El.setAttribute(`style`, `display: none;`);
+    h1El.textContent = "";
     startButton.setAttribute(`style`, `display: none;`);
     let currentQuestion = 0;
     generateQuestion();
 
     
-    let chosenAnswerEvent = answerList.addEventListener('click', e=> { 
+    const chosenAnswerEvent = answerList.addEventListener('click', e=> { 
         e.stopPropagation();
         let chosenAnswer = e.target.textContent;
         console.log(chosenAnswer);
@@ -71,6 +75,7 @@ function playGame() {
         
         if (chosenAnswer !== questions[currentQuestion].answer) {
             answerResult.textContent = "Wrong!";
+            timerCountdown -= 20;
         }   else {
             answerResult.textContent = "Correct!";
         }
@@ -85,13 +90,28 @@ function playGame() {
             for (let i = 0; i < 4; i++) {
             answerList.children[i].textContent = questions[currentQuestion].choices[i];
         }
-        answerList.setAttribute(`style`, `display: block`);
-
+        answerList.setAttribute(`style`, `display: inline;`);
         }
+    }
+
 }
 
+function saveScore() {
+    // Take input from inputEl
+    var savedInput = document.querySelector(`.inputClass`).value;
+    // Save input to local storage
+    localStorage.setItem(`key`, savedInput);
+    gameContainer.textContent = localStorage.getItem(`key`);
 }
 
 function endGame() {
-    
+    game.textContent = "";
+    h1El.textContent = "All done!";
+    var inputEl = document.createElement(`input`);
+    inputEl.classList.add(`inputClass`);
+    var inputButtonEl = document.createElement(`button`);
+    inputButtonEl.textContent = `Enter`;
+    gameContainer.appendChild(inputEl);
+    gameContainer.appendChild(inputButtonEl);
+    inputButtonEl.addEventListener(`click`, saveScore);
 }
