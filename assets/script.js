@@ -43,7 +43,7 @@ const questions = [
 answerList.setAttribute(`style`, `display: none;`)
 let savedScore = localStorage.getItem(`score`);
 let timesUp = false;
-var timerCountdown = 1000000;
+var timerCountdown = 90;
 startButton.addEventListener(`click`, e => {
     e.stopPropagation();
     e.preventDefault(); 
@@ -112,20 +112,25 @@ function saveName() {
     // Save input to local storage
     localStorage.setItem(`name`, savedInput);
     scoreList.appendChild(document.createElement(`li`));
-    console.log(localStorage.getItem(`name`));
-    scoreList.lastElementChild.textContent = `${localStorage.getItem(`name`)} ${savedScore}`; 
+    let storeName = localStorage.getItem(`name`)
+    scoreList.lastElementChild.textContent = `${storeName.toUpperCase()} - Score: ${savedScore}`; 
+    
 }
 
 function endGame() {
     timerCountdown = 0;
     game.textContent = "";
-    h1El.textContent = "All done!";
-    var inputEl = document.createElement(`input`);
+    h1El.textContent = "All done! Please enter your Initials";
+    createScoreList();
+}
+
+function createScoreList() {
+    const inputEl = document.createElement(`input`);
     inputEl.classList.add(`inputClass`);
-    var inputButtonEl = document.createElement(`button`);
+    const inputButtonEl = document.createElement(`button`);
     inputButtonEl.textContent = `Enter`;
     gameContainer.appendChild(inputEl);
     gameContainer.appendChild(inputButtonEl);
-    
     inputButtonEl.addEventListener(`click`, saveName);
+
 }
