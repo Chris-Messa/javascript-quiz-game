@@ -21,7 +21,7 @@ const questions = [
     {
         question: `What would typeof(console.log) return to the console?`, 
         answer: `function`, 
-        choices: [ `'string'`, `'function'`, `'undefined'`, `None of the above`]
+        choices: [ `string`, `function`, `undefined`, `None of the above`]
     }, 
     {
         question: `How do we declare an array in javascript?`, 
@@ -129,5 +129,3 @@ function endGame() {
     
     inputButtonEl.addEventListener(`click`, saveName);
 }
-
-localStorage.setItem(`scores`, scoreList);

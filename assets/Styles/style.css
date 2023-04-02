@@ -1,3 +1,7 @@
+body {
+    font-family: sans-serif;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -15,7 +19,7 @@ header {
 }
 
 #game {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 #answer-list {
@@ -25,6 +29,12 @@ header {
     padding: 5px;
 }
 
-li {
+
+#answer-list li {
+    color: white;
+    background-color: blue;
+    border-radius: 10%;
+    display: block;
+    padding: 0.5rem;
     margin: 1rem;
 }
