@@ -1,5 +1,13 @@
 body {
-    font-family: sans-serif;
+    font-family: 
+    'Trebuchet MS', 
+    'Lucida Sans Unicode', 
+    'Lucida Grande', 
+    'Lucida Sans', 
+    Arial, 
+    sans-serif;
+    background-color: rgb(43, 42, 44);
+    color: white;
 }
 
 header {
@@ -10,20 +18,40 @@ header {
     padding: 1rem;
 }
 
+button {
+    padding: 20px;
+    width: 200px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #c4c1c4;
+    border-radius: 10px;
+    background-color: rgb(52, 90, 128);
+}
+
+button:hover {
+    background-color: rgb(16, 18, 29);
+}
+
 .game-flex-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 30rem;
+    
 }
 
 #game {
     font-size: 2rem;
+    justify-content: center;
+}
+
+#quiz-questions {
+    justify-content: center;
 }
 
 #answer-list {
-    display: none;
+    display: flex;
     list-style: none;
     margin: 5px;
     padding: 5px;
@@ -31,10 +59,25 @@ header {
 
 
 #answer-list li {
-    color: white;
-    background-color: blue;
-    border-radius: 10%;
-    display: block;
+    background-color: rgb(52, 90, 128);
+    border-radius: 10px;
     padding: 0.5rem;
     margin: 1rem;
+}
+
+#answer-list li:hover {
+    background-color: rgb(91, 146, 201);
+}
+
+input {
+    margin: 10px;
+    padding: 10px;
+}
+
+#end-game li {
+    font-size: 25px;
+    border-radius: 10px;
+    background-color: blueviolet;
+    padding: 5px;
+    margin: 10px;
 }

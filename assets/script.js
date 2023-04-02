@@ -40,10 +40,10 @@ const questions = [
     }
 ];
 
-
+answerList.setAttribute(`style`, `display: none;`)
 let savedScore = localStorage.getItem(`score`);
 let timesUp = false;
-var timerCountdown = 90;
+var timerCountdown = 1000000;
 startButton.addEventListener(`click`, e => {
     e.stopPropagation();
     e.preventDefault(); 
