@@ -4,7 +4,7 @@ const startButton = document.querySelector(`#start-button`);
 const quizQuestions = document.querySelector(`#quiz-questions`);
 const answerList = document.querySelector(`#answer-list`);
 const answerResult = document.querySelector(`#answer-result`);
-const scorelist = document.querySelector(`#end-game`);
+const scoreList = document.querySelector(`#end-game`);
 const h1El =  document.querySelector(`h1`);
 const gameContainer = document.querySelector(`.game-flex-container`);
 const questions = [
@@ -40,48 +40,57 @@ const questions = [
     }
 ];
 
-var timerCountdown = 0;
+
+let savedScore = localStorage.getItem(`score`);
+let timesUp = false;
+var timerCountdown = 90;
 startButton.addEventListener(`click`, e => {
     e.stopPropagation();
     e.preventDefault(); 
     playGame();
 
     timer.textContent = timerCountdown;
-    
-    const interval = setInterval(() => {
-        timerCountdown--; 
-        timer.textContent = timerCountdown;
-        if (timerCountdown <= 0) {
-            clearInterval(interval);
-            timer.textContent = "Times Up!";
-            endGame();
-        }
-    }, 1000)
- 
+
+
 });
 
 function playGame() {
     h1El.textContent = "";
     startButton.setAttribute(`style`, `display: none;`);
-    let currentQuestion = 0;
-    generateQuestion();
-
     
+    let currentQuestion = 0;
+    const interval = setInterval(() => {
+        timerCountdown--; 
+        timer.textContent = timerCountdown;
+        if (timerCountdown <= 0 || currentQuestion === 6) {
+            localStorage.setItem(`score`, timerCountdown)
+            clearInterval(interval);
+            timer.textContent = "Times Up!";
+            endGame();
+        }
+    }, 1000)
+    generateQuestion();
+    console.log(timesUp);
     const chosenAnswerEvent = answerList.addEventListener('click', e=> { 
         e.stopPropagation();
         let chosenAnswer = e.target.textContent;
-        console.log(chosenAnswer);
-        console.log(questions[currentQuestion].answer)
-        
+        console.log(currentQuestion);
         if (chosenAnswer !== questions[currentQuestion].answer) {
             answerResult.textContent = "Wrong!";
             timerCountdown -= 20;
         }   else {
             answerResult.textContent = "Correct!";
         }
-        currentQuestion++
-        generateQuestion(); 
+        currentQuestion++;
+
+        generateQuestion();
+
     });
+
+    if (timerCountdown <= 0) {
+        endGame();
+    }
+
 
     function generateQuestion() {
         if (currentQuestion < questions.length) {
@@ -93,18 +102,22 @@ function playGame() {
         answerList.setAttribute(`style`, `display: inline;`);
         }
     }
+    
 
 }
 
-function saveScore() {
+function saveName() {
     // Take input from inputEl
     var savedInput = document.querySelector(`.inputClass`).value;
     // Save input to local storage
-    localStorage.setItem(`key`, savedInput);
-    gameContainer.textContent = localStorage.getItem(`key`);
+    localStorage.setItem(`name`, savedInput);
+    scoreList.appendChild(document.createElement(`li`));
+    console.log(localStorage.getItem(`name`));
+    scoreList.lastElementChild.textContent = `${localStorage.getItem(`name`)} ${savedScore}`; 
 }
 
 function endGame() {
+    timerCountdown = 0;
     game.textContent = "";
     h1El.textContent = "All done!";
     var inputEl = document.createElement(`input`);
@@ -113,5 +126,8 @@ function endGame() {
     inputButtonEl.textContent = `Enter`;
     gameContainer.appendChild(inputEl);
     gameContainer.appendChild(inputButtonEl);
-    inputButtonEl.addEventListener(`click`, saveScore);
+    
+    inputButtonEl.addEventListener(`click`, saveName);
 }
+
+localStorage.setItem(`scores`, scoreList);
